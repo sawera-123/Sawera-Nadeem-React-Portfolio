@@ -1,155 +1,493 @@
-import Navbar from "./components/Navbar.jsx";
-import SectionHeading from "./components/SectionHeading.jsx";
-import ProjectCard from "./components/ProjectCard.jsx";
-import { profile, skillGroups, projects, certifications } from "./data.js";
 
-function Arrow() {
-  return <span aria-hidden="true">↗</span>;
-}
+import { useState } from "react";
+import { motion } from "motion/react";
+import "./App.css";
 
-export default function App() {
+const skills = [
+  "HTML5",
+  "CSS3",
+  "JavaScript",
+  "React.js",
+  "Node.js",
+  "Express.js",
+  "MongoDB",
+  "Git & GitHub",
+  "C++",
+  "Python",
+];
+
+const projects = [
+  {
+    number: "01",
+    title: "CareScout",
+    category: "Final Year Project · MERN Stack",
+    description:
+      "A platform concept to help parents discover schools, daycare centers, and caretakers in one place.",
+    tech: ["React", "Node.js", "MongoDB"],
+    link: "",
+  },
+  {
+    number: "02",
+    title: "Student Analytics",
+    category: "Data Analysis · Python",
+    description:
+      "A student performance analysis project exploring academic data and identifying useful patterns.",
+    tech: ["Python", "Pandas", "Machine Learning"],
+    link: "",
+  },
+  {
+    number: "03",
+    title: "Personal Portfolio",
+    category: "Frontend Development",
+    description:
+      "A responsive personal website to present my skills, projects, and journey as a developer.",
+    tech: ["React", "CSS", "Motion"],
+    link: "",
+  },
+];
+
+const reveal = {
+  hidden: { opacity: 0, y: 28 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.7, ease: "easeOut" },
+  },
+};
+
+function App() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const closeMenu = () => setMenuOpen(false);
+
   return (
-    <>
-      <Navbar />
-      <main>
-        <section className="hero section" id="home">
-          <div className="hero-glow glow-one"></div>
-          <div className="hero-glow glow-two"></div>
-          <div className="container hero-grid">
-            <div className="hero-copy">
-              <div className="availability"><span className="availability-dot"></span> Open to internship opportunities</div>
-              <p className="eyebrow">COMPUTER SCIENCE STUDENT · LAHORE, PAKISTAN</p>
-              <h1>Hi, I’m <span className="gradient-text">Sawera Nadeem.</span></h1>
-              <h2 className="hero-role">Aspiring MERN Stack Developer <span className="role-divider">|</span> React.js · Node.js · MongoDB</h2>
-              <p className="hero-description">I’m a Computer Science student who enjoys building for the web, exploring new technologies, and solving problems through code. I’m looking for an opportunity to learn from a team, contribute to real projects, and grow as a developer.</p>
-              <div className="hero-actions">
-                <a className="button button-primary" href="#projects">Explore my projects <Arrow /></a>
-                <a className="button button-secondary" href="#contact">Contact me <Arrow /></a>
-              </div>
-              <a className="cv-link" href="/Sawera_Nadeem_CV.pdf" download>
-                <span className="cv-icon" aria-hidden="true">↓</span>
-                Download CV <span className="cv-note">(add your PDF to public/)</span>
-              </a>
-              <div className="hero-socials">
-                <a href={profile.linkedin} target="_blank" rel="noreferrer">LinkedIn <Arrow /></a>
-                <a href={`mailto:${profile.email}`}>Email <Arrow /></a>
-                <span>{profile.location}</span>
-              </div>
-            </div>
-            <div className="hero-visual" aria-label="Decorative developer illustration">
-              <div className="visual-orbit orbit-one"></div>
-              <div className="visual-orbit orbit-two"></div>
-              <div className="profile-card">
-                <div className="profile-card-top"><span></span><span></span><span></span><small>developer.js</small></div>
-                <div className="code-lines" aria-hidden="true">
-                  <p><span className="code-muted">01</span> <span className="code-purple">const</span> <span className="code-blue">developer</span> = {"{"}</p>
-                  <p><span className="code-muted">02</span> &nbsp; name: <span className="code-green">'Sawera'</span>,</p>
-                  <p><span className="code-muted">03</span> &nbsp; focus: <span className="code-green">'Web Dev'</span>,</p>
-                  <p><span className="code-muted">04</span> &nbsp; learning: <span className="code-green">'MERN'</span>,</p>
-                  <p><span className="code-muted">05</span> &nbsp; mindset: <span className="code-green">'Always grow'</span></p>
-                  <p><span className="code-muted">06</span> {"}"};</p>
-                  <p className="code-cursor"><span className="code-muted">07</span> <span className="code-purple">console</span>.log(<span className="code-green">'Hello world!'</span>);</p>
-                </div>
-                <div className="profile-card-bottom"><span className="terminal-dot"></span> curious mind.exe <span className="running">● learning</span></div>
-              </div>
-              <div className="floating-chip chip-react"><span>⚛</span> React.js</div>
-              <div className="floating-chip chip-node"><span>⬡</span> Node.js</div>
-              <div className="floating-chip chip-mongo"><span>◈</span> MongoDB</div>
-              <div className="visual-caption"><span className="caption-line"></span> Learning. Building. Improving.</div>
-            </div>
-          </div>
-          <div className="container hero-bottom"><span>SCROLL TO EXPLORE</span><span className="scroll-line"></span><span>01 / 05</span></div>
-        </section>
+    <main className="portfolio">
+      <div className="background-glow glow-one" />
+      <div className="background-glow glow-two" />
 
-        <section className="section about-section" id="about">
-          <div className="container about-grid">
-            <div className="about-label"><p className="eyebrow">A LITTLE ABOUT ME</p><span className="about-symbol" aria-hidden="true">✳</span></div>
-            <div className="about-content">
-              <SectionHeading eyebrow="ABOUT ME" title={<>Building my skills, <span className="gradient-text">one project at a time.</span></>} />
-              <p className="large-copy">I’m pursuing a <strong>BS in Computer Science at Riphah International University, Lahore</strong>, with a CGPA of 3.55. I’m interested in full-stack web development and enjoy learning how ideas become useful digital products.</p>
-              <p className="body-copy">My current focus is strengthening my React, JavaScript, Node.js, and database skills while applying my programming foundations to projects. I value clear communication, curiosity, and steady improvement, and I’m eager to gain hands-on experience in a professional development environment.</p>
-              <div className="about-facts">
-                <div><span className="fact-number">3.55</span><span className="fact-label">CGPA</span></div>
-                <div><span className="fact-number">2023–27</span><span className="fact-label">BS COMPUTER SCIENCE</span></div>
-                <div><span className="fact-number">Lahore</span><span className="fact-label">PAKISTAN</span></div>
-              </div>
-            </div>
-          </div>
-        </section>
+      <header className="navbar">
+        <a className="logo" href="#home" onClick={closeMenu}>
+          SN<span>.</span>
+        </a>
 
-        <section className="section skills-section" id="skills">
-          <div className="container">
-            <SectionHeading eyebrow="WHAT I WORK WITH" title={<>My technical <span className="gradient-text">toolkit.</span></>} description="Technologies and tools I’ve studied or worked with through coursework and projects." />
-            <div className="skills-grid">
-              {skillGroups.map((group, index) => (
-                <article className={`skill-card ${index === 4 ? "skill-card-wide" : ""}`} key={group.title}>
-                  <div className="skill-card-heading"><span className="skill-index">0{index + 1}</span><h3>{group.title}</h3></div>
-                  <div className="tag-list">{group.skills.map((skill) => <span className="skill-pill" key={skill}>{skill}</span>)}</div>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
+        <button
+          className="menu-toggle"
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Toggle navigation"
+          aria-expanded={menuOpen}
+        >
+          {menuOpen ? "✕" : "☰"}
+        </button>
 
-        <section className="section projects-section" id="projects">
-          <div className="container">
-            <div className="section-heading-row">
-              <SectionHeading eyebrow="SELECTED WORK" title={<>Projects & <span className="gradient-text">practice.</span></>} description="A selection of academic and personal projects that reflect my interests in web, mobile, and game development." />
-              <span className="projects-count">03 PROJECTS <span>↘</span></span>
-            </div>
-            <div className="projects-grid">{projects.map((project) => <ProjectCard key={project.number} project={project} />)}</div>
-            <p className="projects-note"><span>✦</span> Project links are placeholders until you add your real repository or demo URLs.</p>
-          </div>
-        </section>
+        <nav className={menuOpen ? "nav-links open" : "nav-links"}>
+          {["Home", "About", "Skills", "Projects", "Contact"].map((item) => (
+            <a
+              key={item}
+              href={`#${item.toLowerCase()}`}
+              onClick={closeMenu}
+            >
+              {item}
+            </a>
+          ))}
+          <a className="nav-resume" href="#contact" onClick={closeMenu}>
+            Let's Talk <span>↗</span>
+          </a>
+        </nav>
+      </header>
 
-        <section className="section education-section" id="education">
-          <div className="container education-grid">
-            <div>
-              <SectionHeading eyebrow="MY BACKGROUND" title={<>Education & <span className="gradient-text">learning.</span></>} description="Building a strong foundation through university study, practical projects, and additional training." />
-              <article className="education-card">
-                <div className="education-mark">RIU</div>
-                <div className="education-details">
-                  <span className="timeline-date">2023 — 2027</span>
-                  <h3>BS Computer Science</h3>
-                  <p>Riphah International University</p>
-                  <p className="education-location">Lahore, Pakistan</p>
-                </div>
-                <div className="cgpa"><strong>3.55</strong><span>CGPA</span></div>
-              </article>
-            </div>
-            <div className="certifications">
-              <p className="eyebrow">CERTIFICATIONS & TRAINING</p>
-              <div className="cert-list">
-                {certifications.map(([year, title]) => <div className="cert-item" key={`${year}-${title}`}><span className="cert-year">{year}</span><span className="cert-bullet"></span><p>{title}</p></div>)}
-              </div>
-              <p className="cert-note">Add certificate links or issuing organizations where available to help recruiters verify credentials.</p>
-            </div>
-          </div>
-        </section>
+      <section className="hero section-container" id="home">
+        <div className="hero-content">
+          <motion.div
+            className="availability"
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <span className="availability-dot" />
+            OPEN TO INTERNSHIP OPPORTUNITIES
+          </motion.div>
 
-        <section className="section contact-section" id="contact">
-          <div className="contact-glow"></div>
-          <div className="container contact-container">
-            <p className="eyebrow">LET’S CONNECT</p>
-            <h2>Ready to learn, <span className="gradient-text">build, and contribute.</span></h2>
-            <p className="contact-intro">I’m interested in MERN Stack internships, junior developer roles, and entry-level software development opportunities. If you’re looking for a motivated learner who is ready to grow and contribute, I’d be happy to connect.</p>
-            <div className="contact-grid">
-              <a className="contact-card" href={`mailto:${profile.email}`}><span className="contact-icon">✉</span><span className="contact-meta">EMAIL ME</span><strong>{profile.email}</strong><span className="contact-arrow"><Arrow /></span></a>
-              <a className="contact-card" href={`tel:${profile.phone.replaceAll(" ", "")}`}><span className="contact-icon">⌕</span><span className="contact-meta">CALL ME</span><strong>{profile.phone}</strong><span className="contact-arrow"><Arrow /></span></a>
-              <a className="contact-card" href={profile.linkedin} target="_blank" rel="noreferrer"><span className="contact-icon">in</span><span className="contact-meta">CONNECT ON</span><strong>LinkedIn Profile</strong><span className="contact-arrow"><Arrow /></span></a>
-            </div>
-            <p className="location-line"><span>⌖</span> {profile.location}</p>
-          </div>
-        </section>
-      </main>
-      <footer className="footer">
-        <div className="container footer-inner">
-          <a className="brand" href="#home"><span className="brand-mark">S<span>.</span></span><span>Sawera Nadeem</span></a>
-          <p>Designed with purpose. Built with React.</p>
-          <a className="back-top" href="#home">Back to top ↑</a>
-          <span className="copyright">© {new Date().getFullYear()} Sawera Nadeem</span>
+          <motion.p
+            className="eyebrow hero-eyebrow"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7, delay: 0.15 }}
+          >
+            HELLO, I'M
+          </motion.p>
+
+          <motion.h1
+            className="hero-name"
+            initial={{ opacity: 0, y: 45, filter: "blur(8px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            transition={{ duration: 1, delay: 0.25, ease: "easeOut" }}
+          >
+            Sawera
+            <br />
+            <span className="name-highlight">
+              Nadeem<span className="name-dot">.</span>
+            </span>
+          </motion.h1>
+
+          <motion.div
+            className="hero-role"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.8 }}
+          >
+            <span className="role-prefix">I'm a </span>
+            <span className="typing-text">MERN Stack Developer</span>
+          </motion.div>
+
+          <motion.p
+            className="hero-description"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 1 }}
+          >
+            I create modern, responsive web experiences and enjoy turning ideas
+            into real projects. I'm building my skills in React, Node.js, and
+            full-stack development, one project at a time.
+          </motion.p>
+
+          <motion.div
+            className="hero-actions"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 1.15 }}
+          >
+            <motion.a
+              href="#projects"
+              className="button button-primary"
+              whileHover={{ scale: 1.04, y: -4 }}
+              whileTap={{ scale: 0.97 }}
+            >
+              Explore My Work <span>↗</span>
+            </motion.a>
+
+            <motion.a
+              href="#contact"
+              className="button button-secondary"
+              whileHover={{ scale: 1.04, y: -4 }}
+              whileTap={{ scale: 0.97 }}
+            >
+              Contact Me
+            </motion.a>
+          </motion.div>
+
+          <motion.div
+            className="social-links"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 1.3 }}
+          >
+            <a
+              href="https://github.com/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              GitHub ↗
+            </a>
+            <span className="social-divider">/</span>
+            <a
+              href="https://www.linkedin.com/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              LinkedIn ↗
+            </a>
+          </motion.div>
         </div>
+
+        <motion.div
+          className="hero-visual"
+          initial={{ opacity: 0, scale: 0.85, x: 30 }}
+          animate={{ opacity: 1, scale: 1, x: 0 }}
+          transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
+        >
+          <div className="orbit orbit-one" />
+          <div className="orbit orbit-two" />
+
+          <motion.div
+            className="profile-card"
+            animate={{ y: [0, -12, 0] }}
+            transition={{
+              duration: 5,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          >
+            <div className="card-top">
+              <div className="window-dots">
+                <span />
+                <span />
+                <span />
+              </div>
+              <span className="card-file">sawera.jsx</span>
+              <span className="card-menu">•••</span>
+            </div>
+
+            <div className="code-area">
+              <p>
+                <span className="code-purple">const</span>{" "}
+                <span className="code-blue">developer</span> = {"{"}
+              </p>
+              <p className="code-indent">
+                <span className="code-pink">name</span>:{" "}
+                <span className="code-green">"Sawera Nadeem"</span>,
+              </p>
+              <p className="code-indent">
+                <span className="code-pink">role</span>:{" "}
+                <span className="code-green">"Web Developer"</span>,
+              </p>
+              <p className="code-indent">
+                <span className="code-pink">passion</span>:{" "}
+                <span className="code-green">"Building"</span>,
+              </p>
+              <p className="code-indent">
+                <span className="code-pink">learning</span>: [
+              </p>
+              <p className="code-indent code-more">
+                <span className="code-yellow">"React"</span>,
+              </p>
+              <p className="code-indent code-more">
+                <span className="code-yellow">"Node.js"</span>
+              </p>
+              <p className="code-indent">],</p>
+              <p>{"}"}</p>
+              <div className="code-status">
+                <span className="availability-dot" /> Always learning
+              </div>
+            </div>
+          </motion.div>
+
+          <motion.div
+            className="floating-badge badge-react"
+            animate={{ y: [0, -8, 0], rotate: [0, 4, 0] }}
+            transition={{ duration: 4, repeat: Infinity }}
+          >
+            <span className="badge-symbol">⚛</span>
+            React.js
+          </motion.div>
+
+          <motion.div
+            className="floating-badge badge-code"
+            animate={{ y: [0, 8, 0], rotate: [0, -3, 0] }}
+            transition={{ duration: 4.5, repeat: Infinity }}
+          >
+            <span className="badge-symbol">&lt;/&gt;</span>
+            Clean Code
+          </motion.div>
+
+          <div className="visual-caption">
+            <span className="caption-line" />
+            <span>TURNING IDEAS INTO CODE</span>
+          </div>
+        </motion.div>
+
+        <a className="scroll-indicator" href="#about">
+          <span className="scroll-line" />
+          SCROLL TO EXPLORE
+        </a>
+      </section>
+
+      <section className="section-container about-section" id="about">
+        <motion.div
+          variants={reveal}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+        >
+          <p className="eyebrow">01 / ABOUT ME</p>
+          <h2 className="section-title">
+            Curious mind.
+            <br />
+            <span className="gradient-text">Creative developer.</span>
+          </h2>
+          <p className="section-description">
+            I'm a Computer Science student passionate about web development and
+            building useful digital experiences. I enjoy learning new
+            technologies, solving problems, and improving my projects through
+            practice.
+          </p>
+          <p className="section-description">
+            My current focus is strengthening my React and MERN Stack skills
+            while preparing for an internship where I can learn from a team and
+            contribute to real-world projects.
+          </p>
+        </motion.div>
+
+        <motion.div
+          className="about-stat-card"
+          variants={reveal}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+        >
+          <span className="stat-icon">✳</span>
+          <h3>Always learning</h3>
+          <p>Growing through projects, practice, and new challenges.</p>
+          <div className="stat-tags">
+            <span>Problem solving</span>
+            <span>Teamwork</span>
+            <span>Curiosity</span>
+          </div>
+        </motion.div>
+      </section>
+
+      <section className="section-container skills-section" id="skills">
+        <motion.div
+          className="section-heading"
+          variants={reveal}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+        >
+          <p className="eyebrow">02 / MY TOOLKIT</p>
+          <h2 className="section-title">
+            Skills I'm <span className="gradient-text">building with.</span>
+          </h2>
+          <p className="section-description">
+            Technologies I use in my learning and development projects.
+          </p>
+        </motion.div>
+
+        <div className="skills-grid">
+          {skills.map((skill, index) => (
+            <motion.div
+              className="skill-card"
+              key={skill}
+              variants={reveal}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.04 }}
+              whileHover={{ y: -6, scale: 1.02 }}
+            >
+              <span className="skill-number">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <span className="skill-name">{skill}</span>
+              <span className="skill-arrow">↗</span>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      <section className="section-container projects-section" id="projects">
+        <motion.div
+          className="section-heading"
+          variants={reveal}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+        >
+          <p className="eyebrow">03 / SELECTED WORK</p>
+          <h2 className="section-title">
+            Projects with <span className="gradient-text">purpose.</span>
+          </h2>
+          <p className="section-description">
+            A selection of projects and learning work. Open a project link once
+            you have added its live demo or repository URL.
+          </p>
+        </motion.div>
+
+        <div className="projects-grid">
+          {projects.map((project, index) => (
+            <motion.article
+              className={`project-card project-card-${index + 1}`}
+              key={project.number}
+              variants={reveal}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.15 }}
+              whileHover={{ y: -8 }}
+            >
+              <div className="project-art">
+                <span className="project-art-number">{project.number}</span>
+                <span className="project-art-symbol">
+                  {index === 0 ? "⌘" : index === 1 ? "◈" : "✳"}
+                </span>
+                <span className="project-art-label">PROJECT / 0{index + 1}</span>
+              </div>
+
+              <div className="project-content">
+                <p className="project-category">{project.category}</p>
+                <h3>{project.title}</h3>
+                <p className="project-description">{project.description}</p>
+
+                <div className="project-tech">
+                  {project.tech.map((tech) => (
+                    <span key={tech}>{tech}</span>
+                  ))}
+                </div>
+
+                {project.link ? (
+                  <a
+                    className="project-link"
+                    href={project.link}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    View Project ↗
+                  </a>
+                ) : (
+                  <span className="project-link project-link-muted">
+                    Add project URL in App.jsx ↗
+                  </span>
+                )}
+              </div>
+            </motion.article>
+          ))}
+        </div>
+      </section>
+
+      <section className="section-container contact-section" id="contact">
+        <motion.div
+          className="contact-card"
+          variants={reveal}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+        >
+          <p className="eyebrow">04 / LET'S CONNECT</p>
+          <h2 className="section-title">
+            Have an opportunity?
+            <br />
+            <span className="gradient-text">Let's talk.</span>
+          </h2>
+          <p className="section-description">
+            I'm interested in MERN Stack internships and junior developer
+            opportunities. I'd love to connect, learn, and build something
+            meaningful.
+          </p>
+
+          <motion.a
+            className="button button-primary contact-button"
+            href="mailto:YOUR_EMAIL@example.com"
+            whileHover={{ scale: 1.04, y: -3 }}
+            whileTap={{ scale: 0.97 }}
+          >
+            Send Me an Email <span>↗</span>
+          </motion.a>
+
+          <p className="contact-note">
+            Replace YOUR_EMAIL@example.com with your real email address.
+          </p>
+        </motion.div>
+      </section>
+
+      <footer className="footer section-container">
+        <a className="logo" href="#home">
+          SN<span>.</span>
+        </a>
+        <p>Designed & built with React by Sawera Nadeem.</p>
+        <a href="#home" className="back-to-top">
+          Back to top ↑
+        </a>
       </footer>
-    </>
+    </main>
   );
 }
+
+export default App;
